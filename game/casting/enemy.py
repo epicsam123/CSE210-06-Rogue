@@ -2,4 +2,5 @@ from game.casting.actor import Actor
 
 
 class Enemy(Actor):
-    pass
+    def __init__(self):
+        super().__init__()

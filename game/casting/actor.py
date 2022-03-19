@@ -124,6 +124,3 @@ class Actor:
             velocity (Point): The given velocity.
         """
         self._velocity = velocity
-        
-    def grow_tail(self):
-        pass
