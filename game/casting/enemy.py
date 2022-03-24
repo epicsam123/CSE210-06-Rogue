@@ -13,7 +13,9 @@ class Enemy(Actor):
         super().__init__()
         self.set_text("*")
         self.set_color(constants.RED)
-    
+        x = random.randint(0,900)
+        y = random.randint(0,450)  
+        self.set_position(Point(x,y))
 
     
     def get_position(self):
@@ -21,14 +23,13 @@ class Enemy(Actor):
 
     def get_velocity(self):
         return super().get_velocity()
-    
+"""
     def move_next(self):
         x = random.randint(1, constants.COLUMNS - 1)
         y = random.randint(1, constants.ROWS - 1)
         position = Point(x, y)
         position = position.scale(constants.CELL_SIZE)
         self.set_position(position)
-"""
     def _make_vector(self, speed,cast):
         # get player position and own position and find slope
         player = cast.get_first_actor("snakes").get_segments()[0]

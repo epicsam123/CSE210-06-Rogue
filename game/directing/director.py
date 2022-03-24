@@ -1,3 +1,4 @@
+from game.casting.enemy import Enemy
 class Director:
     """A person who directs the game. 
     
@@ -14,6 +15,7 @@ class Director:
             video_service (VideoService): An instance of VideoService.
         """
         self._video_service = video_service
+        self._count=0
         
     def start_game(self, cast, script):
         """Starts the game using the given cast and script. Runs the main game loop.
@@ -27,6 +29,9 @@ class Director:
             self._execute_actions("input", cast, script)
             self._execute_actions("update", cast, script)
             self._execute_actions("output", cast, script)
+            if int(self._video_service.get_time())%5 == 0 and self._count %5 == 0 :
+                cast.add_actor("enemy", Enemy())
+            self._count +=1 
         self._video_service.close_window()
 
     def _execute_actions(self, group, cast, script):
@@ -39,4 +44,4 @@ class Director:
         """
         actions = script.get_actions(group)    
         for action in actions:
-            action.execute(cast, script)          
+            action.execute(cast, script)  
