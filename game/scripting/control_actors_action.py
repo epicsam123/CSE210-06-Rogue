@@ -7,7 +7,9 @@ class ControlActorsAction(Action):
     """
     INHERITS ACTION, ONE INSTANCE OF POLYMORPHISM
 
-    An input action that controls the snake.
+    An input action that controls the player.
+
+    Supports diagonal movements.
     
     The responsibility of ControlActorsAction is to get the direction and move the snake's head.
 
@@ -69,7 +71,7 @@ class ControlActorsAction(Action):
             else:
                 self._direction = Point(0, constants.CELL_SIZE)
 
-        else: # No buttons presse 
+        else: # No buttons pressed
             self._direction = Point(0, 0)
         
         player = cast.get_first_actor("player")
