@@ -1,5 +1,4 @@
 import constants
-
 from game.casting.cast import Cast
 from game.casting.player import Player
 from game.casting.enemy import Enemy
@@ -20,7 +19,8 @@ def main():
     # create the cast
     cast = Cast()
     cast.add_actor("player", Player())
-    cast.add_actor("enemy", Enemy())
+    cast.add_actor("enemy", Enemy())    
+    
    
     # start the game
     keyboard_service = KeyboardService()
