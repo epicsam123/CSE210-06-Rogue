@@ -1,10 +1,8 @@
 from decimal import DivisionByZero
-import re
-from turtle import position
 from game.casting.actor import Actor
 from game.casting.player import Player
 from game.shared.point import Point
-
+from game.casting.cast import Cast
 
 class Enemy(Actor):
     def __init__(self):
@@ -20,9 +18,16 @@ class Enemy(Actor):
         return super().get_velocity()
     
     def move_next(self):
-        return super().move_next()
+        player = cast.
+        enemy = cast
 
-    def _make_vector(self, speed):
+
+        pass
+
+    def _make_vector(self, player, enemy, speed):
+        """
+        Helper method used in move_next()
+        """
         # get player position and own position and find slope
         hero_x = player.get_position().get_x()
         hero_y = player.get_position().get_y()
@@ -45,8 +50,6 @@ class Enemy(Actor):
                 return -x
             else:
                 return 0
-           
-        
 
         return vector_point
         
