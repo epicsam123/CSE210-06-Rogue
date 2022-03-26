@@ -19,7 +19,7 @@ def main():
     # create the cast
     cast = Cast()
     cast.add_actor("player", Player())
-    cast.add_actor("enemy", Enemy())    
+    cast.add_actor("enemy", Enemy(cast))    
     
    
     # start the game

@@ -44,7 +44,7 @@ class VideoService:
             width = pyray.measure_text(text, font_size)
             offset = int(width / 2)
             x -= offset
-            
+        
         pyray.draw_text(text, x, y, font_size, color)
         
     def draw_actors(self, actors, centered=False):
@@ -78,9 +78,10 @@ class VideoService:
         """
         pyray.init_window(constants.MAX_X, constants.MAX_Y, constants.CAPTION)
         pyray.set_target_fps(constants.FRAME_RATE)
+
     def get_time(self):
-        print(int(pyray.get_time()))
         return int(pyray.get_time())
+        
     def _draw_grid(self):
         """Draws a grid on the screen."""
         for y in range(0, constants.MAX_Y, constants.CELL_SIZE):
@@ -88,9 +89,10 @@ class VideoService:
             
         for x in range(0, constants.MAX_X, constants.CELL_SIZE):
             pyray.draw_line(x, 0, x, constants.MAX_Y, pyray.GRAY)
+
     def time_in_game(self):
-        print(pyray.get_time())
         return int(pyray.get_time())
+
     def _get_x_offset(self, text, font_size):
         width = pyray.measure_text(text, font_size)
         return int(width / 2)

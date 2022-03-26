@@ -64,7 +64,6 @@ class Point:
         new_x = self._x * -1
         new_y = self._y * -1
         return Point(new_x, new_y)
-    def scale(self,factor):
-        return Point(self._x * factor, self._y * factor) 
+
     def __mul__(self,factor):
         return Point(self._x * factor, self._y * factor) 

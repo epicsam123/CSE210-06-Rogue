@@ -1,91 +1,84 @@
-
-from decimal import DivisionByZero
 from game.casting.actor import Actor
 from game.casting.player import Player
 from game.shared.point import Point
-<<<<<<< HEAD
-from game.casting.cast import Cast
-=======
+
 import random
 import constants
->>>>>>> 505bd1e8523d7aa2a447ed8b369c72ccc14b8a1b
 
 class Enemy(Actor):
-    def __init__(self):
+    def __init__(self, cast):
         super().__init__()
+        self._cast = cast
         self.set_text("*")
         self.set_color(constants.RED)
-        x = random.randint(0,900)
-        y = random.randint(0,450)  
+        x, y = self.__spawn_point()
         self.set_position(Point(x,y))
+        self._speed = 3 # The rate at which x changes in pixels.
 
-    
-    def get_position(self):
-        return super().get_position()
-
-    def get_velocity(self):
-        return super().get_velocity()
-"""
-    def move_next(self):
-<<<<<<< HEAD
-        player = cast.
-        enemy = cast
-
-
-        pass
-
-    def _make_vector(self, player, enemy, speed):
+    def __spawn_point(self):
+        """Makes sure that the enemy does not spawn too close to the player by a space of 900 pixels squared.
         """
-        Helper method used in move_next()
-        """
-=======
-        x = random.randint(1, constants.COLUMNS - 1)
-        y = random.randint(1, constants.ROWS - 1)
-        position = Point(x, y)
-        position = position.scale(constants.CELL_SIZE)
-        self.set_position(position)
-    def _make_vector(self, speed,cast):
->>>>>>> 505bd1e8523d7aa2a447ed8b369c72ccc14b8a1b
-        # get player position and own position and find slope
-        player = cast.get_first_actor("snakes").get_segments()[0]
-        hero_x = player.get_position().get_x()
-        hero_y = player.get_position().get_y()
-        enemy_x = self.get_position().get_x()
-        enemy_y = self.get_position().get_y()
-
-        try:
-            vector_angle = (hero_y - enemy_y) / (hero_x - enemy_x)
-        except DivisionByZero:
-            pass
+        player_x, player_y = self.__get_player_pos()
+        x = player_x
+        y = player_y
         
-        new_enemy_x = vector_angle * enemy_x
-        new_enemy_y = vector_angle * enemy_y
-        vector_point = Point(new_enemy_x, new_enemy_y)
+        while abs(player_x - x) < 30 and abs(player_y - y) < 30:
+            x = random.randint(0, constants.MAX_X)
+            y = random.randint(0, constants.MAX_Y)
 
-        def direction_x(x):
+        return x, y
+    
+    def __get_player_pos(self):
+        """Returns the x and y coordinate of the position of the player
+        """
+        player = self._cast.get_first_actor("player")
+        x = player.get_position().get_x()
+        y = player.get_position().get_y()
+        return x, y
+
+    def move_next(self):
+        self._position = self._make_vector(self._speed)
+        
+
+    def _make_vector(self, speed):
+        """
+        Helper method used in move_next() - 
+        Get player position and enemy position and find slope
+        """
+
+        def direction_x():
             if hero_x > enemy_x:
-                return x
+                return 1
             elif hero_x < enemy_x:
-                return -x
+                return -1
             else:
                 return 0
 
+        def verticial():
+            if hero_y > enemy_y:
+                return 1
+            elif hero_y < enemy_y:
+                return -1
+            else:
+                return 0
+
+        hero_x, hero_y = self.__get_player_pos()
+        enemy_x = self.get_position().get_x()
+        enemy_y = self.get_position().get_y()
+
+        vector_angle = 1
+
+        try:
+            vector_angle = (hero_y - enemy_y) / (hero_x - enemy_x) # Formula for slope: (y2 - y1) / (x2 - x1)
+        except ZeroDivisionError: # Vertical line
+            new_enemy_x = enemy_x
+            new_enemy_y = enemy_y + (speed * verticial())
+
+        b = -(vector_angle * enemy_x - enemy_y)
+
+        new_enemy_x = enemy_x + (speed * direction_x())
+        new_enemy_y = int(vector_angle * new_enemy_x + b) # y = mx + b
+        vector_point = Point(new_enemy_x, new_enemy_y)
+
         return vector_point
         
-
-
-"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-    

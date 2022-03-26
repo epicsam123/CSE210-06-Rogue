@@ -79,9 +79,9 @@ class Actor:
         self._position = Point(x, y)
 
     def create_rect(self,object):
-            """Create a hitbox for the snakes and food.
+            """Create a hitbox.
             Args:
-            object: an acotor or part of an actor
+            object: an actor or part of an actor
             """
             return pyray.Rectangle(object.get_position().get_x(),object.get_position().get_y(),10,10)
 

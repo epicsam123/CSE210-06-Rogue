@@ -27,13 +27,11 @@ class DrawActorsAction(Action):
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
-        snake = cast.get_first_actor("player")
-        segments = snake.get_segments()
+        player = cast.get_first_actor("player")
         messages = cast.get_actors("messages")
         enemies = cast.get_actors("enemy")
-
         self._video_service.clear_buffer()
-        self._video_service.draw_actors(segments)
+        self._video_service.draw_actor(player)
         self._video_service.draw_actors(enemies)
         self._video_service.draw_actors(messages, True)
         self._video_service.flush_buffer()

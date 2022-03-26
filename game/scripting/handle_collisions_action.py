@@ -29,7 +29,6 @@ class HandleCollisionsAction(Action):
         """
         if not self._is_game_over:
             self._handle_player_collision(cast)
-            self._handle_segment_collision(cast)
             self._handle_game_over(cast)
 
     def _handle_player_collision(self, cast):
@@ -38,42 +37,15 @@ class HandleCollisionsAction(Action):
         Args:
             cast (Cast): The cast of Actors in the game.
         """
-        snake = cast.get_first_actor("player")
-        head = snake.get_head()
-        segments = snake.get_segments()[1:]
-        """
-        for segment in segments:
-            rect1 = p2.create_rect(head2)
-            rect2 = snake.create_rect(segment)
+        player = cast.get_first_actor("player")
+        enemies = cast.get_actors("enemy")
+
+        for enemy in enemies:
+            rect1 = player.create_rect(player)
+            rect2 = enemy.create_rect(enemy)
             if pyray.check_collision_recs(rect1,rect2):
                 self._is_game_over = True
-                self._winner=1
-        for segment in segments2:
-            rect1 = snake.create_rect(head)
-            rect2 = p2.create_rect(segment)
-            if pyray.check_collision_recs(rect1,rect2):
-                self._is_game_over = True
-                self._winner=0
-        """
-    
-    def _handle_segment_collision(self, cast):
-        """Sets the game over flag if the snake collides with one of its segments.
-        
-        Args:
-            cast (Cast): The cast of Actors in the game.
-        """
-        snake = cast.get_first_actor("player")
-        head = snake.get_segments()[0]
-        """
-        for segment in segments:
-            if head.get_position().equals(segment.get_position()):
-                self._is_game_over = True
-                self._winner=0
-        for segment in segments2:
-            if head2.get_position().equals(segment.get_position()):
-                self._is_game_over = True
-                self._winner=1
-            """
+
     def _handle_game_over(self, cast):
         """Shows the 'game over' message and turns the snake and food white if the game is over.
         
@@ -81,16 +53,15 @@ class HandleCollisionsAction(Action):
             cast (Cast): The cast of Actors in the game.
         """
         if self._is_game_over:
-            snake = cast.get_first_actor("player")
-            segments = snake.get_segments()
+            player = cast.get_first_actor("player")
 
             x = int(constants.MAX_X / 2)
             y = int(constants.MAX_Y / 2)
-            position = Point(x, y)
+            message_position = Point(x, y)
 
             message = Actor()
             message.set_text("Game Over!")
-            message.set_position(position)
+            message.set_position(message_position)
             cast.add_actor("messages", message)
-            segments.set_color(constants.WHITE)
-            snake.set_color(constants.WHITE)
+            
+            player.set_color(constants.WHITE)
