@@ -13,7 +13,7 @@ class Enemy(Actor):
         self.set_color(constants.RED)
         x, y = self.__spawn_point()
         self.set_position(Point(x,y))
-        self._speed = 2 # The rate at which x changes in pixels.
+        self._speed = 6 # The rate at which x changes in pixels.
 
     def __spawn_point(self):
         """Makes sure that the enemy does not spawn too close to the player by a space of 900 pixels squared.
@@ -62,24 +62,23 @@ class Enemy(Actor):
             else:
                 return 0
         
-        # def nerf(angle):
-        #     if abs(angle) > 3:
-        #         return angle / 3 
-        #     else:
-        #         return angle
-
         hero_x, hero_y = self.__get_player_pos()
         enemy_x = self.get_position().get_x()
         enemy_y = self.get_position().get_y()
 
-        vector_angle = 1
+        new_enemy_y = None
 
         try:
             vector_angle = (hero_y - enemy_y) / (hero_x - enemy_x) # Formula for slope: (y2 - y1) / (x2 - x1)
-          #  vector_angle = nerf(vector_angle)
             b = -(vector_angle * enemy_x - enemy_y)
             new_enemy_x = enemy_x + (speed * direction_x())
-            new_enemy_y = int(vector_angle * new_enemy_x + b) # y = mx + b
+            if abs(enemy_x - hero_x) < self._speed:
+                new_enemy_x = hero_x
+
+            new_enemy_y = int(vector_angle * new_enemy_x + b)
+            if abs(enemy_y - new_enemy_y) > self._speed: 
+                new_enemy_y = enemy_y + int(self._speed * verticial()) # nerf
+
         except ZeroDivisionError: # Vertical line
             new_enemy_x = enemy_x
             new_enemy_y = enemy_y + (speed * verticial())
