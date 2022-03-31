@@ -48,7 +48,11 @@ class Director:
             self._execute_actions("output", cast, script)
             if int(self._video_service.get_time()) % 5 == 0 and self._count % 5 == 0 and int(self._video_service.get_time()) < 20:
                 cast.add_actor("enemy", Enemy(cast))
-            if int(self._video_service.get_time()) % 5 == 0 and self._count % 5 == 0 and int(self._video_service.get_time()) >= 20:
+            if int(self._video_service.get_time()) % 5 == 0 and self._count % 5 == 0 and int(self._video_service.get_time()) >= 20 and int(self._video_service.get_time()) < 40:
+                cast.add_actor("enemy", Enemy(cast))
+                cast.add_actor("enemy", Enemy(cast))
+            if int(self._video_service.get_time()) % 5 == 0 and self._count % 5 == 0 and int(self._video_service.get_time()) >= 40:
+                cast.add_actor("enemy", Enemy(cast))
                 cast.add_actor("enemy", Enemy(cast))
                 cast.add_actor("enemy", Enemy(cast))
             self._count += 1 
