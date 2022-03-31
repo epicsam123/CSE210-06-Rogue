@@ -74,9 +74,24 @@ class Actor:
             max_x (int): The maximum x value.
             max_y (int): The maximum y value.
         """
-        x = (self._position.get_x() + self._velocity.get_x()) % constants.MAX_X
-        y = (self._position.get_y() + self._velocity.get_y()) % constants.MAX_Y
+        x = (self._position.get_x() + self._velocity.get_x())
+        y = (self._position.get_y() + self._velocity.get_y())
+        x, y = self._boundary(x, y)
         self._position = Point(x, y)
+    
+    def _boundary(self, x, y):
+        """So the player cannot go off the screen
+        """
+        if 0 > x:
+            x = 0
+        elif x > constants.MAX_X - 10:
+            x = constants.MAX_X - 10
+        if 0 > y:
+            y = 0
+        elif y > constants.MAX_Y - 15:
+            y = constants.MAX_Y - 15
+
+        return x, y
 
     def create_rect(self,object):
             """Create a hitbox.

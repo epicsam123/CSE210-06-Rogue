@@ -29,7 +29,7 @@ class HandleCollisionsAction(Action):
         """
         if not self._is_game_over:
             self._handle_player_collision(cast)
-            self._handle_game_over(cast)
+            self._handle_game_over(cast, script)
 
     def _handle_player_collision(self, cast):
         """Updates the score nd moves the food if the snake collides with the food.
@@ -46,7 +46,7 @@ class HandleCollisionsAction(Action):
             if pyray.check_collision_recs(rect1,rect2):
                 self._is_game_over = True
 
-    def _handle_game_over(self, cast):
+    def _handle_game_over(self, cast, script):
         """Shows the 'game over' message and turns the snake and food white if the game is over.
         
         Args:
@@ -54,7 +54,11 @@ class HandleCollisionsAction(Action):
         """
         if self._is_game_over:
             player = cast.get_first_actor("player")
-
+          
+            # So the player cannot move anymore
+            player.set_velocity(Point(0, 0))
+            script.remove_action("input", script.get_action("input", 0))
+        
             x = int(constants.MAX_X / 2)
             y = int(constants.MAX_Y / 2)
             message_position = Point(x, y)

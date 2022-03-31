@@ -29,7 +29,7 @@ class DrawActorsAction(Action):
             script (Script): The script of Actions in the game.
         """
         self._video_service.clear_buffer()
-        menu = cast.get_first_actor("menu")
+
         if self._director.game_start:
             player = cast.get_first_actor("player")
             enemies = cast.get_actors("enemy")
@@ -38,6 +38,9 @@ class DrawActorsAction(Action):
             self._video_service.draw_actor(player)
             self._video_service.draw_actors(enemies)
             self._video_service.draw_actors(messages, True)
-            
-        self._video_service.draw_actor(menu, True)
+        
+        else:
+            menu = cast.get_actors("menu")
+            self._video_service.draw_actors(menu, True)
+
         self._video_service.flush_buffer()

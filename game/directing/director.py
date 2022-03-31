@@ -1,4 +1,6 @@
 from game.casting.enemy import Enemy
+import constants
+from game.shared.point import Point
 class Director:
     """A person who directs the game. 
     
@@ -22,15 +24,26 @@ class Director:
     def pre_start(self, cast, script):
         """Returns: True if space bar is hit.
         """
+        self._dress_main_title(cast)
+
+        menu = script.get_action("input", 0)
         self._video_service.open_window()
-        while self._video_service.is_window_open() and not self.game_start:
+        while self._video_service.is_window_open() and not menu.space_pressed:
             self._execute_actions("output", cast, script)
-            self.game_start = self._execute_actions("input", cast, script)
-        print("IM FREE")
+            self._execute_actions("input", cast, script)
+        script.remove_action("input", script.get_action("input", 0))
         if not self._video_service.is_window_open():
             self._video_service.close_window()
         else:
+            self.game_start = True
             return True # Begin game
+
+    def _dress_main_title(self, cast):
+        menu = cast.get_all_actors()[1]
+        menu.set_color(constants.RED)
+        menu.set_position(Point(constants.MAX_X/2, constants.MAX_Y*.25))
+        menu.set_font_size(30)
+        menu.set_text("Rogue")
 
     def start_game(self, cast, script):
         """Starts the game using the given cast and script. Runs the main game loop.
@@ -59,4 +72,4 @@ class Director:
         """
         actions = script.get_actions(group)    
         for action in actions:
-            action.execute(cast, script)  
+            action.execute(cast, script)
