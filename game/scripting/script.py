@@ -35,9 +35,27 @@ class Script:
             List: The actions in the group.
         """
         results = []
-        if group in self._actions.keys():
+        try:
             results = self._actions[group].copy()
+        except KeyError as Err: # TODO
+            raise KeyError(f"{Err}: No Key found.")
         return results
+    
+    def get_action(self, group, index):
+        """Gets the actions in the given group.
+        
+        Args:
+            group (string): The name of the group.
+
+        Returns:
+            List: The actions in the group.
+        """
+        result = None
+        try:
+            result = self._actions[group][index]
+        except KeyError as Err: # TODO
+            raise KeyError(f"{Err}: No Key found.")
+        return result
     
     def remove_action(self, group, action):
         """Removes an action from the given group.

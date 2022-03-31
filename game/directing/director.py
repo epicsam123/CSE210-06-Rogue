@@ -17,7 +17,21 @@ class Director:
         """
         self._video_service = video_service
         self._count = 0 # Num enemies
+        self.game_start = False
         
+    def pre_start(self, cast, script):
+        """Returns: True if space bar is hit.
+        """
+        self._video_service.open_window()
+        while self._video_service.is_window_open() and not self.game_start:
+            self._execute_actions("output", cast, script)
+            self.game_start = self._execute_actions("input", cast, script)
+        print("IM FREE")
+        if not self._video_service.is_window_open():
+            self._video_service.close_window()
+        else:
+            return True # Begin game
+
     def start_game(self, cast, script):
         """Starts the game using the given cast and script. Runs the main game loop.
 
@@ -25,7 +39,7 @@ class Director:
             cast (Cast class): The cast of actors.
             script (Script class): The script of actions.
         """
-        self._video_service.open_window()
+
         while self._video_service.is_window_open():
             self._execute_actions("input", cast, script)
             self._execute_actions("update", cast, script)

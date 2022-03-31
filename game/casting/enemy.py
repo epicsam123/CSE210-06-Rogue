@@ -66,22 +66,21 @@ class Enemy(Actor):
         enemy_x = self.get_position().get_x()
         enemy_y = self.get_position().get_y()
 
-        new_enemy_y = None
 
         try:
             vector_angle = (hero_y - enemy_y) / (hero_x - enemy_x) # Formula for slope: (y2 - y1) / (x2 - x1)
-            b = -(vector_angle * enemy_x - enemy_y)
-            new_enemy_x = enemy_x + (speed * direction_x())
-            if abs(enemy_x - hero_x) < self._speed:
+            b = enemy_y - vector_angle * enemy_x
+            new_enemy_x = enemy_x + speed * direction_x()
+            if abs(enemy_x - hero_x) < speed:
                 new_enemy_x = hero_x
 
-            new_enemy_y = int(vector_angle * new_enemy_x + b)
-            if abs(enemy_y - new_enemy_y) > self._speed: 
-                new_enemy_y = enemy_y + int(self._speed * verticial()) # nerf
+            new_enemy_y = int(vector_angle * new_enemy_x + b) # y = mx + b
+            if abs(enemy_y - new_enemy_y) > speed: 
+                new_enemy_y = enemy_y + speed * verticial() # nerf
 
         except ZeroDivisionError: # Vertical line
             new_enemy_x = enemy_x
-            new_enemy_y = enemy_y + (speed * verticial())
+            new_enemy_y = enemy_y + speed * verticial()
 
         
         vector_point = Point(new_enemy_x, new_enemy_y)

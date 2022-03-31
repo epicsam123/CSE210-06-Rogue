@@ -11,7 +11,7 @@ class VideoService:
         """Constructs a new VideoService using the specified debug mode.
         
         Args:
-            debug (bool): whether or not to draw in debug mode.
+            debug (bool): whether or not to draw a grid while in debug mode.
         """
         self._debug = debug
 
@@ -25,7 +25,7 @@ class VideoService:
         """
         pyray.begin_drawing()
         pyray.clear_background(pyray.BLACK)
-        if self._debug == True:
+        if self._debug:
             self._draw_grid()
     
     def draw_actor(self, actor, centered=False):
@@ -45,7 +45,7 @@ class VideoService:
             offset = int(width / 2)
             x -= offset
         
-        pyray.draw_text(text, x, y, font_size, color)
+        pyray.draw_text(text, int(x), int(y), font_size, color)
         
     def draw_actors(self, actors, centered=False):
         """Draws the text for the given list of actors on the screen.
