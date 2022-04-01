@@ -37,7 +37,7 @@ __Services__
 
 __Shared__
 
--color
--point
+- color
+- point
 
 ## Links
