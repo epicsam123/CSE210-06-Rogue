@@ -53,7 +53,7 @@ class Script:
         result = None
         try:
             result = self._actions[group][index]
-        except KeyError as Err: # TODO
+        except KeyError as Err:
             raise KeyError(f"{Err}: No Key found.")
         return result
     

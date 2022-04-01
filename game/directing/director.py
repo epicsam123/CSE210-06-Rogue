@@ -1,3 +1,5 @@
+import constants
+from game.shared.point import Point
 from game.casting.enemy import Enemy
 import constants
 from game.shared.point import Point
@@ -26,17 +28,16 @@ class Director:
         """
         self._dress_main_title(cast)
 
-        menu = script.get_action("input", 0)
+        menu = script.get_actions("input")[0]
         self._video_service.open_window()
         while self._video_service.is_window_open() and not menu.space_pressed:
             self._execute_actions("output", cast, script)
             self._execute_actions("input", cast, script)
-        script.remove_action("input", script.get_action("input", 0))
+        script.remove_action("input", menu)
         if not self._video_service.is_window_open():
             self._video_service.close_window()
         else:
             self.game_start = True
-            return True # Begin game
 
     def _dress_main_title(self, cast):
         menu = cast.get_all_actors()[1]
@@ -52,12 +53,25 @@ class Director:
             cast (Cast class): The cast of actors.
             script (Script class): The script of actions.
         """
+        time = cast.get_first_actor("time")
+        time_delay = time.get_time()
+        time.set_time_delay(time_delay)
 
+        self._video_service.open_window()
+        
         while self._video_service.is_window_open():
             self._execute_actions("input", cast, script)
             self._execute_actions("update", cast, script)
             self._execute_actions("output", cast, script)
-            if int(self._video_service.get_time()) % 5 == 0 and self._count % 5 == 0:
+            current_time = time.get_time()
+            if current_time % 5 == 0 and self._count % 5 == 0 and current_time < 20:
+                cast.add_actor("enemy", Enemy(cast))
+            if current_time % 5 == 0 and self._count % 5 == 0 and current_time >= 20 and current_time < 40:
+                cast.add_actor("enemy", Enemy(cast))
+                cast.add_actor("enemy", Enemy(cast))
+            if current_time % 5 == 0 and self._count % 5 == 0 and current_time >= 40:
+                cast.add_actor("enemy", Enemy(cast))
+                cast.add_actor("enemy", Enemy(cast))
                 cast.add_actor("enemy", Enemy(cast))
             self._count += 1 
         self._video_service.close_window()

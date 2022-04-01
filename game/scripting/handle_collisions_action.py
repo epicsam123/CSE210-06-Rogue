@@ -54,6 +54,10 @@ class HandleCollisionsAction(Action):
         """
         if self._is_game_over:
             player = cast.get_first_actor("player")
+            time = cast.get_first_actor("time")
+            seconds_lasted = time.get_time()
+
+            cast.remove_actor("time", time)
           
             # So the player cannot move anymore
             player.set_velocity(Point(0, 0))
@@ -63,9 +67,12 @@ class HandleCollisionsAction(Action):
             y = int(constants.MAX_Y / 2)
             message_position = Point(x, y)
 
-            message = Actor()
-            message.set_text("Game Over!")
-            message.set_position(message_position)
-            cast.add_actor("messages", message)
+            game_over_message = Actor()
+            game_over_message.set_text("Game Over!")
+            seconds_lasted_message = Actor()
+            seconds_lasted_message.set_text(f"Lasted {seconds_lasted} Seconds")
+            game_over_message.set_position(message_position)
+            cast.add_actor("messages", game_over_message)
+            cast.add_actor("time", seconds_lasted_message)
             
             player.set_color(constants.WHITE)

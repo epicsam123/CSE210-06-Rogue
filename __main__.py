@@ -1,4 +1,3 @@
-import constants
 from game.casting.actor import Actor
 from game.casting.blinking_space_intro import BlinkingSpaceIntro
 from game.casting.cast import Cast
@@ -13,8 +12,7 @@ from game.scripting.draw_actors_action import DrawActorsAction
 from game.directing.director import Director
 from game.services.keyboard_service import KeyboardService
 from game.services.video_service import VideoService
-from game.shared.color import Color
-from game.shared.point import Point
+from game.casting.time import Time
 
 
 def main():
@@ -38,6 +36,7 @@ def main():
 
     cast.add_actor("player", Player())
     cast.add_actor("enemy", Enemy(cast)) 
+    cast.add_actor("time", Time(video_service))
 
     script.add_action("input", ControlActorsAction(keyboard_service))
     script.add_action("update", MoveActorsAction())

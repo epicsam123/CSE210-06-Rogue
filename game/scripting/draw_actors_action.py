@@ -34,10 +34,11 @@ class DrawActorsAction(Action):
             player = cast.get_first_actor("player")
             enemies = cast.get_actors("enemy")
             messages = cast.get_actors("messages")
-
+            time = cast.get_first_actor("time")
             self._video_service.draw_actor(player)
             self._video_service.draw_actors(enemies)
             self._video_service.draw_actors(messages, True)
+            self._video_service.draw_actor(time)
         
         else:
             menu = cast.get_actors("menu")
