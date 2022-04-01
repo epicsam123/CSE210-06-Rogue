@@ -6,37 +6,38 @@ A roguelike game is a dungeon based top down survival type game.  This
 
 ## Classes
 
-**Director** *controls difficulty based on time*
-Constants
+__Casting__
 
-Assets
--sounds
--images
+- actor\n
+- blinking space intro
+- cast
+- enemy
+- player
+- time
+- weapon
 
-Scripting
-- script
+__Directing__
+
+- director
+
+__Scripting__
+
 - action
+- control_actors_action
+- draw_actors_action
+- handle_collisions_action
+- move_actors_action
+- script
 
->**handle collision**
->control player
->draw actors
->move actors
+__Services__
 
-Services
--*keyboard service*
--*video service*
+- audio_service
+- keyboard_service
+- video_service
 
-Casting
--*actor*
->*player*
->*enemy*
->**weapon**
->**time**
--*cast*
+__Shared__
 
-Shared
--*point*
--*color*
-__main__.py
+-color
+-point
 
 ## Links
