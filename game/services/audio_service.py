@@ -1,10 +1,9 @@
 import os
 import pathlib
 import pyray
-from game.services.audio_service import AudioService 
 
 
-class RaylibAudioService(AudioService):
+class RaylibAudioService():
     """A Raylib implementation of AudioService."""
 
     def __init__(self):

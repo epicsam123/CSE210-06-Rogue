@@ -16,10 +16,10 @@ class KeyboardService:
         
         self._keys['space'] = pyray.KEY_SPACE # For starting game in menu
 
-        self._keys['w'] = pyray.KEY_W
-        self._keys['a'] = pyray.KEY_A
-        self._keys['s'] = pyray.KEY_S
-        self._keys['d'] = pyray.KEY_D
+        self._keys['up'] = pyray.KEY_UP
+        self._keys['left'] = pyray.KEY_LEFT
+        self._keys['down'] = pyray.KEY_DOWN
+        self._keys['right'] = pyray.KEY_RIGHT
 
         
 

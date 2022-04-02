@@ -35,6 +35,9 @@ class DrawActorsAction(Action):
             enemies = cast.get_actors("enemy")
             messages = cast.get_actors("messages")
             time = cast.get_first_actor("time")
+            weapon = cast.get_actors("weapon")
+            if len(weapon) > 0:
+                self._video_service.draw_actors(weapon)
             self._video_service.draw_actor(player)
             self._video_service.draw_actors(enemies)
             self._video_service.draw_actors(messages, True)

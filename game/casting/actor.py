@@ -98,7 +98,11 @@ class Actor:
             Args:
             object: an actor or part of an actor
             """
-            return pyray.Rectangle(object.get_position().get_x(),object.get_position().get_y(),10,10)
+            if object.get_text() == ".": # Smaller hitbox for bullet
+                hit_box_size = 2
+            else:
+                hit_box_size = 10
+            return pyray.Rectangle(object.get_position().get_x(), object.get_position().get_y(), hit_box_size, hit_box_size)
 
     def set_color(self, color):
         """Updates the color to the given one.

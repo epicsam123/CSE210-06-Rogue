@@ -3,6 +3,7 @@ from game.shared.point import Point
 from game.casting.enemy import Enemy
 import constants
 from game.shared.point import Point
+from game.casting.weapon import Weapon
 class Director:
     """A person who directs the game. 
     
@@ -58,12 +59,18 @@ class Director:
         time.set_time_delay(time_delay)
 
         self._video_service.open_window()
-        
+        deploy_weapon = True
         while self._video_service.is_window_open():
+            game_over = script.get_action("update", 1).is_game_over
             self._execute_actions("input", cast, script)
             self._execute_actions("update", cast, script)
             self._execute_actions("output", cast, script)
             current_time = time.get_time()
+            if current_time % 4 == 2 and deploy_weapon and not game_over: # Shoot every four seconds
+                cast.add_actor("weapon", Weapon(cast))
+                deploy_weapon = False
+            if current_time % 2 == 1:
+                deploy_weapon = True # Reload
             if current_time % 5 == 0 and self._count % 5 == 0 and current_time < 20:
                 cast.add_actor("enemy", Enemy(cast))
             if current_time % 5 == 0 and self._count % 5 == 0 and current_time >= 20 and current_time < 40:
