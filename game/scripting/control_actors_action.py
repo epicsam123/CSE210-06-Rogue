@@ -30,37 +30,37 @@ class ControlActorsAction(Action):
             script (Script class): The script of Actions in the game.
         """
         # left
-        if self._keyboard_service.is_key_down('left'):
-            if self._keyboard_service.is_key_down('up'):
+        if self._keyboard_service.is_key_down('a'):
+            if self._keyboard_service.is_key_down('w'):
                 self._direction = Point(-10, -10) 
-            elif self._keyboard_service.is_key_down('down'):
+            elif self._keyboard_service.is_key_down('s'):
                 self._direction = Point(-10,10)
             else:
                 self._direction = Point(-10, 0)
         
         # right
-        elif self._keyboard_service.is_key_down('right'):
-            if self._keyboard_service.is_key_down('up'):
+        elif self._keyboard_service.is_key_down('d'):
+            if self._keyboard_service.is_key_down('w'):
                 self._direction = Point(10, -10) 
-            elif self._keyboard_service.is_key_down('down'):
+            elif self._keyboard_service.is_key_down('s'):
                 self._direction = Point(10, 10)
             else:
                 self._direction = Point(10, 0)
 
         # up
-        elif self._keyboard_service.is_key_down('up'):
-            if self._keyboard_service.is_key_down('right'):
+        elif self._keyboard_service.is_key_down('w'):
+            if self._keyboard_service.is_key_down('d'):
                 self._direction = Point(10, -10) 
-            elif self._keyboard_service.is_key_down('left'):
+            elif self._keyboard_service.is_key_down('a'):
                 self._direction = Point(-10, -10)
             else:
                 self._direction = Point(0, -constants.CELL_SIZE)
         
         # down
-        elif self._keyboard_service.is_key_down('down'):
-            if self._keyboard_service.is_key_down('right'):
+        elif self._keyboard_service.is_key_down('s'):
+            if self._keyboard_service.is_key_down('d'):
                 self._direction = Point(10, 10) 
-            elif self._keyboard_service.is_key_down('left'):
+            elif self._keyboard_service.is_key_down('a'):
                 self._direction = Point(-10, 10)
             else:
                 self._direction = Point(0,10)
